@@ -297,6 +297,15 @@
             let user = document.getElementById('username').value.trim();
             if(!user) return alert('Por favor, escribe un nombre de usuario válido.');
             
+        if(!user.startsWith('@')) { user = '@' + user; }
+        
+        document.getElementById('resUser').innerText = user;
+        document.getElementById('resultsBlock').style.display = 'block';
+        
+        document.getElementById('msgResult').innerText = "";
+        document.getElementById('chatMessage').value = "";
+        document.getElementById('cloneResult').innerText = "";
+
         const badge = document.getElementById('badge');
         const pais = document.getElementById('resPais');
         const fotos = document.getElementById('resFotos');
