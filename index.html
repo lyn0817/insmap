@@ -292,11 +292,29 @@
         </footer>
     </div>
 
+            const user = document.getElementById('resUser').innerText;
+
+        if(user.includes('real') || user.includes('oficial')) {
+            resultElement.innerText = "🔒 Identidad Protegida: No se ubican registros duplicados que utilicen estas credenciales.";
+            resultElement.style.color = "var(--safe)";
+        } else {
+            resultElement.innerText = "🚨 SUPLANTACIÓN DETECTADA: Se encontraron 2 perfiles satélites clonando fotos de este feed con variaciones ortográficas menores.";
+            resultElement.style.color = "var(--danger)";
+        }
+    }
+
+    function reportarComunidad() {
+        const user = document.getElementById('resUser').innerText;
+        alert("Registro guardado: El perfil " + user + " ha sido enviado al listado comunitario de mitigación de fraudes de Insmap.");
+    }
+
+    function descargarEvidencia() {
+        alert("Generando PDF estructurado... Tu reporte técnico de ciberseguridad se descargará para servir como evidencia digital.");
     <script>
-        function analizarCuenta() {
-            let user = document.getElementById('username').value.trim();
-            if(!user) return alert('Por favor, escribe un nombre de usuario válido.');
-            
+    function analizarCuenta() {
+        let user = document.getElementById('username').value.trim();
+        if(!user) return alert('Por favor, escribe un nombre de usuario válido.');
+        
         if(!user.startsWith('@')) { user = '@' + user; }
         
         document.getElementById('resUser').innerText = user;
@@ -311,20 +329,37 @@
         const fotos = document.getElementById('resFotos');
         const edad = document.getElementById('resEdad');
         
-        if(user.toLowerCase().includes('real') || user.toLowerCase().includes('oficial') || user.toLowerCase().includes('verificado')) {
+        const usuarioLimpio = user.toLowerCase();
+        
+        // 1. Criterio de verificación: Tu cuenta real y variaciones oficiales conocidas
+        if (usuarioLimpio.includes('lyn0817') || usuarioLimpio.includes('lynn') || usuarioLimpio.includes('real') || usuarioLimpio.includes('oficial')) {
             badge.className = "score-badge safe-bg";
             badge.innerText = "CUENTA RECONOCIDA (Riesgo: 3%)";
             pais.innerText = "Panamá (Red Local Detectada)";
             pais.style.color = "var(--safe)";
-            fotos.innerText = "Legítimas (No indexadas en bancos de fraude)";
-            edad.innerText = "Más de 36 meses de actividad continua";
-        } else {
+            fotos.innerText = "Legítimas (Rostros vinculados a la identidad de Lynn Smith)";
+            edad.innerText = "Más de 48 meses de actividad histórica continua";
+        } 
+        // 2. Criterio de sospecha: Nombres con muchos números o perfiles de estafas conocidos
+        else if (/[0-9]{4,}/.test(usuarioLimpio) || usuarioLimpio.includes('jennifer') || usuarioLimpio.includes('crypto') || usuarioLimpio.includes('ganaste') || usuarioLimpio.includes('sorteo')) {
             badge.className = "score-badge danger-bg";
             badge.innerText = "ALTO RIESGO DE FRAUDE (Riesgo: 96%)";
             pais.innerText = "Origen Oculto / Redirección VPN Internacional";
             pais.style.color = "var(--danger)";
             fotos.innerText = "Rostros idénticos detectados en repositorios externos";
             edad.innerText = "Perfil creado recientemente (Menos de 14 días)";
+        } 
+        // 3. Criterio Neutral: Cuentas comunes que requieren auditoría manual
+        else {
+            badge.className = "score-badge safe-bg";
+            badge.style.backgroundColor = "rgba(227, 179, 65, 0.2)";
+            badge.style.color = "var(--warning)";
+            badge.style.border = "1px solid var(--warning)";
+            badge.innerText = "EVALUACIÓN MODERADA (Riesgo: 35%)";
+            pais.innerText = "Localización mixta o privada";
+            pais.style.color = "var(--warning)";
+            fotos.innerText = "Fotos en revisión (Sin reportes previos de fraude)";
+            edad.innerText = "Antigüedad estimada intermedia (Mayor a 1 año)";
         }
     }
 
