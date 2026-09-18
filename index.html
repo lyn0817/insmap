@@ -292,24 +292,6 @@
         </footer>
     </div>
 
-            const user = document.getElementById('resUser').innerText;
-
-        if(user.includes('real') || user.includes('oficial')) {
-            resultElement.innerText = "🔒 Identidad Protegida: No se ubican registros duplicados que utilicen estas credenciales.";
-            resultElement.style.color = "var(--safe)";
-        } else {
-            resultElement.innerText = "🚨 SUPLANTACIÓN DETECTADA: Se encontraron 2 perfiles satélites clonando fotos de este feed con variaciones ortográficas menores.";
-            resultElement.style.color = "var(--danger)";
-        }
-    }
-
-    function reportarComunidad() {
-        const user = document.getElementById('resUser').innerText;
-        alert("Registro guardado: El perfil " + user + " ha sido enviado al listado comunitario de mitigación de fraudes de Insmap.");
-    }
-
-    function descargarEvidencia() {
-        alert("Generando PDF estructurado... Tu reporte técnico de ciberseguridad se descargará para servir como evidencia digital.");
     <script>
     function analizarCuenta() {
         let user = document.getElementById('username').value.trim();
@@ -398,6 +380,12 @@
     function descargarEvidencia() {
         alert("Generando PDF estructurado... Tu reporte técnico de ciberseguridad se descargará para servir como evidencia digital.");
     }
+</script>
+</body>
+</html>
+
+         
+    
 </script>
 </body>
 </html>
